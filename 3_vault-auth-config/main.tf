@@ -16,7 +16,10 @@ terraform {
   }
 }
 
-provider "tfe" {}
+provider "tfe" {
+  hostname     = "app.terraform.io"
+  organization = var.tfc_organization
+}
 
 data "terraform_remote_state" "hcp_clusters" {
   backend = "remote"
