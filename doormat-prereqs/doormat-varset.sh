@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Check if a parameter is provided for TFH_name; if not, use the default value "terraform_ent_demo"
-TFH_name="${1:-terraform_ent_demo}"
-
-export TFH_name
-export TFH_org=William-Hashicorp
-
 # Perform a login
 doormat login -f
 
