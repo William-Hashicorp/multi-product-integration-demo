@@ -95,7 +95,7 @@ terraform apply -var "tfc_organization=something"
 |TFE_TOKEN|\<TFC User token\>|yes|env|
 |aws_account_id|aws account id of your doormat was account. You can get from the doormat-prereqqs output|no|terraform|
 
-4) Create a new workspace within your TFC project called "0_control-workspace", attaching it to this VCS repository, specifying the working directory as "control-workspace"
+4) Create a new workspace within your TFC project called "0_control-workspace", attaching it to this VCS repository, specifying the working directory as "0_control-workspace"
 5) Create the following workspace variables within "0_control-workspace":
 
 | Key | Value | Sensitive? | Type |
