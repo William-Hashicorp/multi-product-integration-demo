@@ -10,6 +10,6 @@ account=$(doormat aws list | grep arn | awk -F':' '{print $5}')
 eval $(doormat aws export --account ${account})
 
 # Push configuration to Terraform Cloud
-# Change to use your own TFC varset ID
+# Change to use your own TFC doormat varset ID
 doormat aws tf-push variable-set -a ${account} \
   --id varset-cDfJGSfDh3E6UyZn 
