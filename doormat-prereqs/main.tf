@@ -1,3 +1,8 @@
+# <WY>  AWs provider
+provider "aws" {
+  region = var.region
+}
+
 terraform {
   required_providers {
     aws = {
@@ -51,3 +56,10 @@ data "aws_iam_policy_document" "doormat_policy" {
     resources = ["*"]
   }
 }
+
+# <WY> Output the aws_account_id with ARNs
+output "doormat_role_arns" {
+  value = { for key, role in aws_iam_role.doormat_role : key => role.arn }
+  description = "The ARNs of the doormat IAM roles created for each workspace."
+}
+
