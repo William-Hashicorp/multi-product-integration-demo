@@ -93,6 +93,7 @@ terraform apply -var "tfc_organization=something"
 |HCP_PROJECT_ID|\<your HCP Project ID retrieved from HCP\>|no|env|
 |TFC_WORKLOAD_IDENTITY_AUDIENCE|\<can be literally anything\>|no|env|
 |TFE_TOKEN|\<TFC User token\>|yes|env|
+|aws_account_id|aws account id of your doormat was account. You can get from the doormat-prereqqs output|no|terraform|
 
 4) Create a new workspace within your TFC project called "0_control-workspace", attaching it to this VCS repository, specifying the working directory as "control-workspace"
 5) Create the following workspace variables within "0_control-workspace":
@@ -102,6 +103,7 @@ terraform apply -var "tfc_organization=something"
 |oauth_token_id|\<the ot- ID of your OAuth connection\>|no|terraform|
 |repo_identifier|djschnei21/multi-product-integration-demo|no|terraform|
 |tfc_project_id|\<the prj- ID of your TFC Project\>|no|terraform|
+|repro_branch|default is the main branch|no|terraform|
 
 ## Building the Nomad AMI using Packer
 
