@@ -168,6 +168,16 @@ resource "nomad_job" "frontend" {
   jobspec = file("${path.module}/nomad-jobs/frontend.hcl")
 }
 
+resource "consul_intention" "frontend_to_mongodb" {
+  depends_on = [nomad_job.frontend, nomad_job.mongodb]
+
+  source_name      = "demo-frontend"
+  destination_name = "demo-mongodb"
+  action           = "allow"
+}
+
+
+
 # resource "aws_lb_target_group" "frontend_tg" {
 #   name     = "frontend-tg"
 #   port     = 80
