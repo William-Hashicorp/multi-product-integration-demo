@@ -159,6 +159,8 @@ resource "vault_database_secret_backend_role" "mongodb" {
   creation_statements = [
     "{\"db\": \"admin\",\"roles\": [{\"role\": \"root\"}]}"
   ]
+  default_ttl = "3m"  // Sets the TTL for the generated credentials to 3 minutes
+  max_ttl     = "10m" // Sets the maximum TTL to 10 minutes, after which the credentials must be rotated
 }
 
 resource "nomad_job" "frontend" {
@@ -168,6 +170,7 @@ resource "nomad_job" "frontend" {
   jobspec = file("${path.module}/nomad-jobs/frontend.hcl")
 }
 
+# <WY> add intention in consul for the 2 jobs to talk
 resource "consul_intention" "frontend_to_mongodb" {
   depends_on = [nomad_job.frontend, nomad_job.mongodb]
 
