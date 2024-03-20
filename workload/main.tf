@@ -159,8 +159,8 @@ resource "vault_database_secret_backend_role" "mongodb" {
   creation_statements = [
     "{\"db\": \"admin\",\"roles\": [{\"role\": \"root\"}]}"
   ]
-  default_ttl = "3m"  // Sets the TTL for the generated credentials to 3 minutes
-  max_ttl     = "10m" // Sets the maximum TTL to 10 minutes, after which the credentials must be rotated
+  default_ttl = "3m"
+  max_ttl = "10m"
 }
 
 resource "nomad_job" "frontend" {
