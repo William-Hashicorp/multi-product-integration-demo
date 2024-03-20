@@ -159,8 +159,8 @@ resource "vault_database_secret_backend_role" "mongodb" {
   creation_statements = [
     "{\"db\": \"admin\",\"roles\": [{\"role\": \"root\"}]}"
   ]
-  default_ttl = "3m"
-  max_ttl = "10m"
+  default_ttl = 180
+  max_ttl = 600
 }
 
 resource "nomad_job" "frontend" {
