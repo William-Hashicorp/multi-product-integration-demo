@@ -159,6 +159,7 @@ resource "vault_database_secret_backend_role" "mongodb" {
   creation_statements = [
     "{\"db\": \"admin\",\"roles\": [{\"role\": \"root\"}]}"
   ]
+  # add TTL to demo auto secret rotation and job restart
   default_ttl = 180
   max_ttl = 600
 }
