@@ -146,8 +146,12 @@ vault kv get -mount=hashistack-admin/ nomad_bootstrap/SecretID
 
 ## Steps to deploy Nomad jobs:
 • Create a workspace called "7_workload" under the same project.
+
 • If have not, Run the doormat prepare job again to add doormat permission.
+
 • Trigger Apply for the workspace to deploy Nomad jobs
+
 • Show the nomad template code to show Vault's Dynamic MongoDB credentials injection 
+
 
 ### Stay Tuned for a video walkthrough of this demo and environment 
