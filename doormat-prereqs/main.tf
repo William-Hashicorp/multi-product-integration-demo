@@ -16,6 +16,8 @@ variable "tfc_organization" {
   default = ""
 }
 
+# <WY> add 7_workload to give permission to run 7_workload workspace.
+
 variable "tfc_workspace_names" {
   type    = set(string)
   default = ["1_networking", "5_nomad-cluster", "4_boundary-config", "6_nomad-nodes","7_workload"]
