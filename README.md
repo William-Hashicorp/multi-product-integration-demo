@@ -195,3 +195,58 @@ Compare the TTL, if we go to the Nomad portal, and see if nomad job is restart a
 
 • We can disable/enable the intention to disable/allow frontend to mongodb
 • After that, we can stop and restart the nomad job, and try to access again, we will see the difference.
+
+5. Terraform is leveraged to deploy, configure, and integrate the other products
+
+  • Show the availability to deploy a whole system via CICD pipeline with Github
+  • Variable sets
+  • Project and workspaces
+  • Cost estimation
+  • Enable run task checking for post-plan
+
+
+6. Vault is used for dynamic credentials in several locations:
+  • Dynamic Provider credentials used by Terraform
+  • SSH signed Certificate injection in Boundary
+  • Dynamic MongoDB credentials injection via Nomad templates
+  
+• Dynamic Provider credentials
+  • Show the varset Variable set: project_vault_auth_hashistack
+  • It configures OIDC trust with a defined role "project_role" with HCP vault
+  • No credential is required in Terraform
+
+7. Boundary demo
+  • In the Terraform code, show the 3 boundary host sets are built based on ASG tags. This is the dynamic host set. 
+  
+  • Install boundary CLI and desktop if there isn't
+  • https://developer.hashicorp.com/boundary/install
+  • Show SSH session to remote nomad hosts with desktop client.
+  ssh 127.0.0.1 -p xxxxx
+
+  • Show SSH session to remote nomad hosts with CLI .
+```
+export BOUNDARY_USER=admin
+export BOUNDARY_ADDR=https://f81ef0ee-d8ed-448f-b0f4-b20260c9c2e1.boundary.hashicorp.cloud
+export BOUNDARY_PASSWORD=xxx
+export BOUNDARY_AUTH_METHOD=ampw_YXQZ45U5Ms
+export BOUNDARY_TOKEN=$(boundary authenticate password -login-name=$BOUNDARY_USER \
+  -password env://BOUNDARY_PASSWORD \
+  -auth-method-id=$BOUNDARY_AUTH_METHOD \
+  -keyring-type=none \
+  -format=json \
+  | jq -r '.item.attributes.token')
+
+echo $BOUNDARY_TOKEN
+
+#list out the target IDs
+boundary targets list -scope-id <project_id>
+
+export TARGET_ID=xxxxxxxxxx
+
+boundary targets read -id $TARGET_ID
+
+# automatic inject ssh certificates
+
+boundary connect ssh -target-id $TARGET_ID
+
+```
