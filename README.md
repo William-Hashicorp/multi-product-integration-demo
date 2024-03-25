@@ -144,7 +144,7 @@ Now comes the easy part, simply trigger a run on "0_control-workspace" and watch
 
 ## Demo Steps
 
-Once the run is complete, you can access each tool by:
+1. Once the run is complete, you can access each tool by:
 - **HCP Consul**: Navigate to the cluster in HCP and generate a root token
 - **HCP Vault**: Navigate to the cluster in HCP and generate a root token
 - **HCP Boundary**: Navigate to the cluster in HCP or via the Desktop app:
@@ -155,10 +155,10 @@ Once the run is complete, you can access each tool by:
 vault kv get -mount=hashistack-admin/ nomad_bootstrap/SecretID
 ```
 
-Nomad CLI
+2. Nomad CLI
 ```
-export NOMAD_ADDR=
-export NOMAD_TOKEN=
+export NOMAD_ADDR=xxx
+export NOMAD_TOKEN=xxx
 
 nomad job status
 nomad job status demo-frontend
@@ -170,6 +170,16 @@ In case we need to connect SSH to the container:
 nomad alloc exec -task frontend -job demo-frontend /bin/sh
 
 cd /secrets
-cat mongoku,env
+cat mongoku.env
 ```
+
+3. Run the script below in the ./workload folder to show the current lease ID of the mongodb secret engine. 
+
+
+```
+./monitor_secrets.sh 
+```
+
+Compare the TTL, if we go to the Nomad portal, and see if nomad job is restart automatically.Since the TTL is 3min and max ttl is 10min, the container will restart after and get new connections and dynamic credentials.
+
 
