@@ -77,8 +77,11 @@ terraform apply -var "tfc_organization=something"
 ### Preparing your TFC account:
 
 1) Create a new Project (I called mine "hashistack")
-2) Create a new Variable Set (again, I called mine "hashistack") and scope it to your previously created Project
-3) Populate the variable set with the following variables:
+2) Run the doormat-prereqs/doormat-varset.sh script to set AWS credential in your TFC variable set.
+
+3) Create a new Variable Set (again, I called mine "hashistack") and scope it to your previously created Project
+
+4) Populate the variable set with the following variables:
 
 | Key | Value | Sensitive? | Type |
 |-----|-------|------------|------|
@@ -93,9 +96,10 @@ terraform apply -var "tfc_organization=something"
 |HCP_PROJECT_ID|\<your HCP Project ID retrieved from HCP\>|no|env|
 |TFC_WORKLOAD_IDENTITY_AUDIENCE|\<can be literally anything\>|no|env|
 |TFE_TOKEN|\<TFC User token\>|yes|env|
-|aws_account_id|aws account id of your doormat was account. You can get from the doormat-prereqqs output|no|terraform|
+|aws_account_id|aws account id of your doormat was account. You can get from the doormat-prereqs output|no|terraform|
 
 4) Create a new workspace within your TFC project called "0_control-workspace", attaching it to this VCS repository, specifying the working directory as "0_control-workspace"
+
 5) Create the following workspace variables within "0_control-workspace":
 
 | Key | Value | Sensitive? | Type |
@@ -180,6 +184,14 @@ cat mongoku.env
 ./monitor_secrets.sh 
 ```
 
-Compare the TTL, if we go to the Nomad portal, and see if nomad job is restart automatically.Since the TTL is 3min and max ttl is 10min, the container will restart after and get new connections and dynamic credentials.
+Compare the TTL, if we go to the Nomad portal, and see if nomad job is restart automatically. Since the dynamic database credential's TTL is 3min and max ttl is 10min, the container will restart after and get new connections and dynamic credentials.
 
 
+4. To access the demo application:
+
+• Go to the nomad interface or aws console, we will get the public ip of the node. 
+• Visit the website with http://<node public ip address>:3100
+
+
+• We can disable/enable the intention to disable/allow frontend to mongodb
+• After that, we can stop and restart the nomad job, and try to access again, we will see the difference.
