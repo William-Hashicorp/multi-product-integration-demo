@@ -131,18 +131,6 @@ packer build -var "subnet_id=subnet-xxxxxxxxxxxx" ubuntu.pkr.hcl
 
 Now comes the easy part, simply trigger a run on "0_control-workspace" and watch the environment unfold! 
 
-Once the run is complete, you can access each tool by:
-- **HCP Consul**: Navigate to the cluster in HCP and generate a root token
-- **HCP Vault**: Navigate to the cluster in HCP and generate a root token
-- **HCP Boundary**: Navigate to the cluster in HCP or via the Desktop app:
-  - *username*: admin
-  - *password*: this is whatever you set in the variable set
-- **Nomad Ent**: The "5_nomad-cluster" workspace will have an output containing the public ALB endpoint to access the Nomad UI.  The Admin token for this can be retrieved from Vault using
-```
-vault kv get -mount=hashistack-admin/ nomad_bootstrap/SecretID
-```
-
-
 
 ## Steps to deploy Nomad jobs:
 • Create a workspace called "7_workload" under the same project.
@@ -154,4 +142,34 @@ vault kv get -mount=hashistack-admin/ nomad_bootstrap/SecretID
 • Show the nomad template code to show Vault's Dynamic MongoDB credentials injection 
 
 
-### Stay Tuned for a video walkthrough of this demo and environment 
+## Demo Steps
+
+Once the run is complete, you can access each tool by:
+- **HCP Consul**: Navigate to the cluster in HCP and generate a root token
+- **HCP Vault**: Navigate to the cluster in HCP and generate a root token
+- **HCP Boundary**: Navigate to the cluster in HCP or via the Desktop app:
+  - *username*: admin
+  - *password*: this is whatever you set in the variable set
+- **Nomad Ent**: The "5_nomad-cluster" workspace will have an output containing the public ALB endpoint to access the Nomad UI.  The Admin token for this can be retrieved from Vault using
+```
+vault kv get -mount=hashistack-admin/ nomad_bootstrap/SecretID
+```
+
+Nomad CLI
+```
+export NOMAD_ADDR=
+export NOMAD_TOKEN=
+
+nomad job status
+nomad job status demo-frontend
+```
+
+In case we need to connect SSH to the container:
+
+```
+nomad alloc exec -task frontend -job demo-frontend /bin/sh
+
+cd /secrets
+cat mongoku,env
+```
+
