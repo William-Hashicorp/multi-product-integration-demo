@@ -190,7 +190,7 @@ Compare the TTL, if we go to the Nomad portal, and see if nomad job is restart a
 4. To access the demo application:
 
 • Go to the nomad interface or aws console, we will get the public ip of the node. 
-• Visit the website with http://<node public ip address>:3100
+• Visit the website with http://node public ip address:3100
 
 
 • We can disable/enable the intention to disable/allow frontend to mongodb
