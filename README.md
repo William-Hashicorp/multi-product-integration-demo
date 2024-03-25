@@ -192,7 +192,7 @@ Compare the TTL, if we go to the Nomad portal, and see if nomad job is restart a
 • Go to the nomad interface or aws console, we will get the public ip of the node. 
 • Visit the website with http://node public ip address:3100
 
-
+Consul:
 • We can disable/enable the intention to disable/allow frontend to mongodb
 • After that, we can stop and restart the nomad job, and try to access again, we will see the difference.
 
@@ -228,7 +228,7 @@ Compare the TTL, if we go to the Nomad portal, and see if nomad job is restart a
 export BOUNDARY_USER=admin
 export BOUNDARY_ADDR=https://f81ef0ee-d8ed-448f-b0f4-b20260c9c2e1.boundary.hashicorp.cloud
 export BOUNDARY_PASSWORD=xxx
-export BOUNDARY_AUTH_METHOD=ampw_YXQZ45U5Ms
+export BOUNDARY_AUTH_METHOD=xxx
 export BOUNDARY_TOKEN=$(boundary authenticate password -login-name=$BOUNDARY_USER \
   -password env://BOUNDARY_PASSWORD \
   -auth-method-id=$BOUNDARY_AUTH_METHOD \
@@ -250,3 +250,5 @@ boundary targets read -id $TARGET_ID
 boundary connect ssh -target-id $TARGET_ID
 
 ```
+
+8. show catalog in HCP Packer, show AMI images in AWS console.
