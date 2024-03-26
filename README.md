@@ -105,7 +105,7 @@ terraform apply -var "tfc_organization=something"
 | Key | Value | Sensitive? | Type |
 |-----|-------|------------|------|
 |oauth_token_id|\<the ot- ID of your OAuth connection\>|no|terraform|
-|repo_identifier|djschnei21/multi-product-integration-demo|no|terraform|
+|repo_identifier|William-Hashicorp/multi-product-integration-demo|no|terraform|
 |tfc_project_id|\<the prj- ID of your TFC Project\>|no|terraform|
 |repro_branch|default is the main branch|no|terraform|
 
