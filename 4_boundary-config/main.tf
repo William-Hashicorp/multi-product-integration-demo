@@ -198,6 +198,7 @@ resource "boundary_host_set_plugin" "nomad_servers" {
   host_catalog_id = boundary_host_catalog_plugin.aws.id
   attributes_json = jsonencode({ "filters" = ["tag:aws:autoscaling:groupName=nomad-server"] })
   preferred_endpoints   = ["dns:*.com"]
+  sync_interval_seconds = 60
 }
 
 resource "boundary_host_set_plugin" "nomad_nodes_x86" {
@@ -205,6 +206,7 @@ resource "boundary_host_set_plugin" "nomad_nodes_x86" {
   host_catalog_id = boundary_host_catalog_plugin.aws.id
   attributes_json = jsonencode({ "filters" = ["tag:aws:autoscaling:groupName=nomad-client-x86"] })
   preferred_endpoints   = ["dns:*.com"]
+  sync_interval_seconds = 60
 }
 
 resource "boundary_host_set_plugin" "nomad_nodes_arm" {
@@ -212,6 +214,7 @@ resource "boundary_host_set_plugin" "nomad_nodes_arm" {
   host_catalog_id = boundary_host_catalog_plugin.aws.id
   attributes_json = jsonencode({ "filters" = ["tag:aws:autoscaling:groupName=nomad-client-arm"] })
   preferred_endpoints   = ["dns:*.com"]
+  sync_interval_seconds = 30
 }
 
 resource "boundary_target" "nomad_servers" {
