@@ -252,3 +252,7 @@ boundary connect ssh -target-id $TARGET_ID
 ```
 
 8. show catalog in HCP Packer, show AMI images in AWS console.
+
+Latest change:
+1. update 5_ and 6_ due to the latest hcp provider break changes.
+https://github.com/hashicorp/terraform-provider-hcp/releases/tag/v0.84.0
