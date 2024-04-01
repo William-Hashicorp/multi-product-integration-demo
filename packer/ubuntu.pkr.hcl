@@ -4,7 +4,7 @@ variable "subnet_id" {
 
 variable "region" {
   type    = string
-  default = "us-east-2"
+  default = "us-east-1"
 }
 
 source "amazon-ebs" "amd" {
