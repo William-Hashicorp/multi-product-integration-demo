@@ -88,21 +88,42 @@ data "terraform_remote_state" "nomad_cluster" {
   }
 }
 
-data "hcp_packer_image" "ubuntu_lunar_hashi_x86" {
+# data "hcp_packer_image" "ubuntu_lunar_hashi_x86" {
+#   bucket_name    = "ubuntu-mantic-hashi"
+#   component_type = "amazon-ebs.amd"
+#   channel        = "latest"
+#   cloud_provider = "aws"
+#   region         = var.region
+# }
+
+# data "hcp_packer_image" "ubuntu_lunar_hashi_arm" {
+#   bucket_name    = "ubuntu-mantic-hashi"
+#   component_type = "amazon-ebs.arm"
+#   channel        = "latest"
+#   cloud_provider = "aws"
+#   region         = var.region
+# }
+
+data "hcp_packer_artifact" "ubuntu_lunar_hashi_x86" {
   bucket_name    = "ubuntu-mantic-hashi"
-  component_type = "amazon-ebs.amd"
-  channel        = "latest"
-  cloud_provider = "aws"
+  platform = "aws"
   region         = var.region
+
+  component_type = "amazon-ebs.amd"
+  channel_name        = "latest"
+
 }
 
-data "hcp_packer_image" "ubuntu_lunar_hashi_arm" {
+data "hcp_packer_artifact" "ubuntu_lunar_hashi_arm" {
   bucket_name    = "ubuntu-mantic-hashi"
-  component_type = "amazon-ebs.arm"
-  channel        = "latest"
-  cloud_provider = "aws"
+  platform = "aws"
   region         = var.region
+
+  component_type = "amazon-ebs.arm"
+  channel_name        = "latest"
+ 
 }
+
 
 resource "aws_iam_role" "efs_role" {
   name = "efs-role"
