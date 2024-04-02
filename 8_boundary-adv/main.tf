@@ -57,10 +57,16 @@ provider "boundary" {
 
 
 
-data "boundary_scope" "global" {
-  name = "global"
-  scope_id     = ""
+# data "boundary_scope" "global" {
+#   name = "global"
+#   scope_id     = ""
+# }
+
+resource "boundary_scope" "global" {
+  global_scope = true
+  scope_id     = "global"
 }
+
 
 data "boundary_scope" "org" {
   name                     = "demo-org"
@@ -74,7 +80,7 @@ data "boundary_scope" "project" {
 }
 
 data "boundary_auth_method" "password" {
-  scope_id = data.boundary_scope.global.id
+  scope_id = boundary_scope.global.id
   name     = var.auth_method_name
 }
 
@@ -101,14 +107,14 @@ resource "boundary_account" "nomad_enduser_account" {
 resource "boundary_user" "nomad_admin" {
   name        = var.nomad_admin
   description = "Nomad Admin User"
-  scope_id    = data.boundary_scope.global.id
+  scope_id    = boundary_scope.global.id
   account_ids = [boundary_account.nomad_admin_account.id]
 }
 
 resource "boundary_user" "nomad_enduser" {
   name        = var.nomad_enduser
   description = "Nomad End User"
-  scope_id    = data.boundary_scope.global.id
+  scope_id    = boundary_scope.global.id
   account_ids = [boundary_account.nomad_enduser_account.id]
 }
 
@@ -124,7 +130,7 @@ resource "boundary_group" "nomad_admins" {
 resource "boundary_group" "nomad_endusers" {
   name        = "nomad-endusers"
   description = "Group for Nomad End Users"
-  scope_id    = data.boundary_scope.global.id
+  scope_id    = boundary_scope.global.id
   member_ids  = [boundary_user.nomad_enduser.id]
 }
 
@@ -132,7 +138,7 @@ resource "boundary_group" "nomad_endusers" {
 resource "boundary_role" "nomad_admin_role" {
   name          = "nomad-admin-role"
   description   = "Role for Nomad Admins"
-  scope_id      = data.boundary_scope.global.id
+  scope_id      = boundary_scope.global.id
   principal_ids = [boundary_group.nomad_admins.id]
   grant_strings = [
     "id=*;type=*;actions=read,list"
@@ -142,7 +148,7 @@ resource "boundary_role" "nomad_admin_role" {
 resource "boundary_role" "nomad_enduser_role" {
   name          = "nomad-enduser-role"
   description   = "Role for Nomad End Users"
-  scope_id      = data.boundary_scope.global.id
+  scope_id      = boundary_scope.global.id
   principal_ids = [boundary_group.nomad_endusers.id]
   grant_strings = [
     "id=*;type=*;actions=read,list"
