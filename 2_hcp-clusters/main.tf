@@ -59,7 +59,7 @@ resource "hcp_consul_cluster_root_token" "provider" {
     prevent_destroy       = false
   }
 
-  # Dummy dependency to force recreation
+  # Dummy dependency to force recreation 
   depends_on = [random_pet.trigger]
 }
 
