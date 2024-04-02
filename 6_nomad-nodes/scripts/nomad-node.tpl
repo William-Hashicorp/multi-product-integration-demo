@@ -75,4 +75,7 @@ echo $ssh_ca_public_key >> /etc/ssh/trusted-user-ca-keys.pem
 echo "Restarting SSHD service"
 sudo service sshd restart
 
-echo "Script executed successfully"
+# Install cowsay
+sudo apt-get install -y cowsay
+
+echo "Script executed successfully" | cowsay
