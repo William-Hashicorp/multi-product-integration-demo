@@ -32,10 +32,6 @@ data "terraform_remote_state" "hcp_clusters" {
   }
 }
 
-variable "auth_method" {
-  default = "admin_token"
-}
-
 provider "vault" {
   address = data.terraform_remote_state.hcp_clusters.outputs.vault_public_endpoint
 
