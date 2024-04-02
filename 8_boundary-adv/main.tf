@@ -57,10 +57,10 @@ provider "boundary" {
 
 
 
-# data "boundary_scope" "global" {
-#   name = "global"
-#   scope_id     = "global"
-# }
+data "boundary_scope" "global" {
+  name = "global"
+  scope_id     = ""
+}
 
 data "boundary_scope" "org" {
   name                     = "demo-org"
