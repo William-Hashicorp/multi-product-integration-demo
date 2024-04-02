@@ -21,19 +21,6 @@ terraform {
   }
 }
 
-# provider "doormat" {}
-
-# data "doormat_aws_credentials" "creds" {
-#   provider = doormat
-#   role_arn = "arn:aws:iam::${var.aws_account_id}:role/tfc-doormat-role_4_boundary-config"
-# }
-
-# provider "aws" {
-#   region     = var.region
-#   access_key = data.doormat_aws_credentials.creds.access_key
-#   secret_key = data.doormat_aws_credentials.creds.secret_key
-#   token      = data.doormat_aws_credentials.creds.token
-# }
 
 data "terraform_remote_state" "hcp_clusters" {
   backend = "remote"
@@ -56,11 +43,6 @@ provider "boundary" {
 
 
 
-
-# data "boundary_scope" "global" {
-#   name = "global"
-#   scope_id     = ""
-# }
 
 resource "boundary_scope" "global" {
   global_scope = true
@@ -134,7 +116,7 @@ resource "boundary_group" "nomad_endusers" {
   member_ids  = [boundary_user.nomad_enduser.id]
 }
 
-# Create roles with grants
+# Create global level roles with grants
 resource "boundary_role" "nomad_admin_role" {
   name          = var.nomad_admin_role
   description   = "Role for Nomad Admins"
@@ -154,3 +136,27 @@ resource "boundary_role" "nomad_enduser_role" {
     "ids=*;type=*;actions=read,list"
   ]
 }
+
+# Create org level roles with grants
+# Role for Nomad Admins
+resource "boundary_role" "nomad_admin_role" {
+  name          = var.nomad_admin_role
+  description   = "Role for Nomad Admins"
+  scope_id      = data.boundary_scope.org.id 
+  principal_ids = [boundary_group.nomad_admins.id] 
+  grant_strings = [
+    "ids=*;type=*;actions=read,list",
+  ]
+}
+
+# Role for Nomad End Users
+resource "boundary_role" "nomad_enduser_role" {
+  name          = var.nomad_enduser_role
+  description   = "Role for Nomad End Users"
+  scope_id      = data.boundary_scope.org.id 
+  principal_ids = [boundary_group.nomad_endusers.id] # Reference to the 'nomad-endusers' group
+  grant_strings = [
+    "ids=*;type=*;actions=read,list",
+  ]
+}
+
