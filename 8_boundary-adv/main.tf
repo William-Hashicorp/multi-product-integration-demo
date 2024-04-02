@@ -172,3 +172,20 @@ resource "boundary_role" "org_nomad_enduser_role" {
   ]
 }
 
+# Create project level roles with grants
+# Role for Nomad Admins
+resource "boundary_role" "project_nomad_admin_role" {
+  name          = var.nomad_admin_role
+  description   = "Role for Nomad Admins in project hashistack-admin"
+  scope_id      = data.boundary_scope.project.id
+  principal_ids = [boundary_group.nomad_admins.id]
+
+  grant_strings = [
+    "ids=${data.terraform_remote_state.boundary_configs.outputs.nomad_servers_target_id};actions=read,authorize-session",
+    "ids=*;type=session;actions=read,read:self,cancel,cancel:self,no-op,list",
+    "ids=*;type=target;actions=list",
+    "ids=*;type=host-set;actions=list,read",
+    "ids=*;type=host-catalog;actions=list,read",
+    "ids=*;type=host;actions=list,read",
+  ]
+}
