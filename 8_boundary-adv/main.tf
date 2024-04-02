@@ -192,7 +192,7 @@ resource "boundary_role" "project_nomad_admin_role" {
 
 # Role for Nomad End users
 
-resource "boundary_role" "nomad_enduser_role" {
+resource "boundary_role" "project_nomad_enduser_role" {
   name          = var.nomad_enduser_role
   description   = "Role for Nomad End Users"
   scope_id      = data.boundary_scope.project.id  # Ensure this is your intended scope
