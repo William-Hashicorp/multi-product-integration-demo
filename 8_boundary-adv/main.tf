@@ -33,6 +33,18 @@ data "terraform_remote_state" "hcp_clusters" {
   }
 }
 
+data "terraform_remote_state" "boundary_configs" {
+  backend = "remote"
+
+  config = {
+    organization = var.tfc_organization
+    workspaces = {
+      name = "4_boundary-config"
+    }
+  }
+}
+
+
 provider "vault" {}
 
 provider "boundary" {
@@ -51,13 +63,13 @@ resource "boundary_scope" "global" {
 
 
 data "boundary_scope" "org" {
-  name                     = "demo-org"
+  name                     = var.boundary_org_name
   scope_id                 = "global"
 }
 
 
 data "boundary_scope" "project" {
-  name                   = "hashistack-admin"
+  name                   = var.boundary_project_name
   scope_id               = data.boundary_scope.org.id 
 }
 

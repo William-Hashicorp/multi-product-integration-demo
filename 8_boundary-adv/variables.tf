@@ -76,3 +76,15 @@ variable "auth_method_name" {
   type        = string
   default     = "password"
 }
+
+variable "boundary_org_name" {
+  description = "name of the default auth method"
+  type        = string
+  default     = "demo-org"
+}
+
+variable "boundary_project_name" {
+  description = "name of the default auth method"
+  type        = string
+  default     = "hashistack-admin"
+}
