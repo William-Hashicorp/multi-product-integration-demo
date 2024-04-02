@@ -123,7 +123,7 @@ resource "boundary_user" "nomad_enduser" {
 resource "boundary_group" "nomad_admins" {
   name        = "nomad-admins"
   description = "Group for Nomad Admins"
-  scope_id    = data.boundary_scope.global.id
+  scope_id    = boundary_scope.global.id
   member_ids  = [boundary_user.nomad_admin.id]
 }
 
