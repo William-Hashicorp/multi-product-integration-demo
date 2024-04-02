@@ -36,14 +36,40 @@ variable "my_email" {
 variable "nomad_admin" {
   description = "Username for the nomad-admin"
   type        = string
-  default     = "nomad_admin"
+  default     = "nomad-admin"
 }
+
+variable "nomad_admin_group" {
+  description = "Group name for the nomad-admin"
+  type        = string
+  default     = "nomad-admins"
+}
+
+variable "nomad_admin_role" {
+  description = "role name for the nomad-admin"
+  type        = string
+  default     = "nomad-admin-role"
+}
+
 
 variable "nomad_enduser" {
   description = "Username for the nomad-enduser"
   type        = string
-  default     = "nomad_enduser"
+  default     = "nomad-enduser"
 }
+
+variable "nomad_enduser_group" {
+  description = "Group name for the nomad-enduser"
+  type        = string
+  default     = "nomad-endusers"
+}
+
+variable "nomad_enduser_role" {
+  description = "Role name for the nomad-enduser"
+  type        = string
+  default     = "nomad-enduser-role"
+}
+
 
 variable "auth_method_name" {
   description = "name of the default auth method"

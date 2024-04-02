@@ -121,14 +121,14 @@ resource "boundary_user" "nomad_enduser" {
 
 # Create groups
 resource "boundary_group" "nomad_admins" {
-  name        = "nomad-admins"
+  name        = var.nomad_admin_group
   description = "Group for Nomad Admins"
   scope_id    = boundary_scope.global.id
   member_ids  = [boundary_user.nomad_admin.id]
 }
 
 resource "boundary_group" "nomad_endusers" {
-  name        = "nomad-endusers"
+  name        = var.nomad_enduser_group
   description = "Group for Nomad End Users"
   scope_id    = boundary_scope.global.id
   member_ids  = [boundary_user.nomad_enduser.id]
@@ -136,7 +136,7 @@ resource "boundary_group" "nomad_endusers" {
 
 # Create roles with grants
 resource "boundary_role" "nomad_admin_role" {
-  name          = "nomad-admin-role"
+  name          = var.nomad_admin_role
   description   = "Role for Nomad Admins"
   scope_id      = boundary_scope.global.id
   principal_ids = [boundary_group.nomad_admins.id]
@@ -146,7 +146,7 @@ resource "boundary_role" "nomad_admin_role" {
 }
 
 resource "boundary_role" "nomad_enduser_role" {
-  name          = "nomad-enduser-role"
+  name          = var.nomad_enduser_role
   description   = "Role for Nomad End Users"
   scope_id      = boundary_scope.global.id
   principal_ids = [boundary_group.nomad_endusers.id]
