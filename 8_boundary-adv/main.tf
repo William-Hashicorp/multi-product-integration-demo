@@ -100,14 +100,14 @@ resource "boundary_user" "nomad_admin" {
   name        = var.nomad_admin
   description = "Nomad Admin User"
   scope_id    = boundary_scope.global.id
-  account_ids = [boundary_account.nomad_admin_account.id]
+  account_ids = [boundary_account_password.nomad_admin_account.id]
 }
 
 resource "boundary_user" "nomad_enduser" {
   name        = var.nomad_enduser
   description = "Nomad End User"
   scope_id    = boundary_scope.global.id
-  account_ids = [boundary_account.nomad_enduser_account.id]
+  account_ids = [boundary_account_password.nomad_enduser_account.id]
 }
 
 
