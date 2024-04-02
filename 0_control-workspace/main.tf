@@ -110,6 +110,22 @@ resource "tfe_workspace" "nomad_nodes" {
   global_remote_state = true
 }
 
+resource "tfe_workspace" "nomad_workload" {
+  name          = "7_workload"
+  organization  = var.tfc_organization
+  project_id    = var.tfc_project_id
+
+  vcs_repo {
+    identifier = var.repo_identifier
+    oauth_token_id = var.oauth_token_id
+    branch = var.repo_branch
+  }
+
+  working_directory = "7_workload"
+  queue_all_runs = false
+  assessments_enabled = false
+  global_remote_state = true
+}
 
 resource "tfe_workspace" "boundary-adv" {
   name          = "8_boundary-adv"
@@ -237,8 +253,26 @@ resource "tfe_workspace_run" "nomad_nodes" {
   }
 }
 
-resource "tfe_workspace_run" "boundary-adv" {
+resource "tfe_workspace_run" "nomad_workload" {
   depends_on = [ tfe_workspace_run.nomad_nodes ]
+  workspace_id    = tfe_workspace.nomad_workload.id
+
+  apply {
+    manual_confirm    = false
+    wait_for_run      = true
+    retry_attempts    = 5
+    retry_backoff_min = 5
+  }
+  destroy {
+    manual_confirm    = false
+    wait_for_run      = true
+    retry_attempts    = 5
+    retry_backoff_min = 5
+  }
+}
+
+resource "tfe_workspace_run" "boundary-adv" {
+  depends_on = [ tfe_workspace_run.nomad_workload ]
   workspace_id    = tfe_workspace.boundary-adv.id
 
   apply {
