@@ -44,3 +44,9 @@ variable "nomad_enduser" {
   type        = string
   default     = "nomad_enduser"
 }
+
+variable "auth_method_name" {
+  description = "name of the default auth method"
+  type        = string
+  default     = "password"
+}
