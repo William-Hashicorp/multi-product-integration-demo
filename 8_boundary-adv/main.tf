@@ -139,7 +139,7 @@ resource "boundary_role" "nomad_enduser_role" {
 
 # Create org level roles with grants
 # Role for Nomad Admins
-resource "boundary_role" "nomad_admin_role" {
+resource "boundary_role" "org_nomad_admin_role" {
   name          = var.nomad_admin_role
   description   = "Role for Nomad Admins"
   scope_id      = data.boundary_scope.org.id 
@@ -150,7 +150,7 @@ resource "boundary_role" "nomad_admin_role" {
 }
 
 # Role for Nomad End Users
-resource "boundary_role" "nomad_enduser_role" {
+resource "boundary_role" "org_nomad_enduser_role" {
   name          = var.nomad_enduser_role
   description   = "Role for Nomad End Users"
   scope_id      = data.boundary_scope.org.id 
