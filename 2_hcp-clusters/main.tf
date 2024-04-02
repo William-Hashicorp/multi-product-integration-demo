@@ -4,10 +4,16 @@ terraform {
       source  = "hashicorp/hcp"
       version = "~> 0.66.0"
     }
+    
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
   }
 }
 
 provider "hcp" {}
+
 
 data "terraform_remote_state" "networking" {
   backend = "remote"
@@ -46,6 +52,17 @@ resource "hcp_consul_cluster_root_token" "provider" {
   cluster_id = hcp_consul_cluster.hashistack.cluster_id
 }
 
+resource "random_pet" "trigger" {
+  length = 1
+}
+
 resource "hcp_vault_cluster_admin_token" "provider" {
   cluster_id = hcp_vault_cluster.hashistack.cluster_id
+  lifecycle {
+    create_before_destroy = true
+    prevent_destroy       = false
+  }
+
+  # Dummy dependency to force recreation
+  depends_on = [random_pet.trigger]
 }

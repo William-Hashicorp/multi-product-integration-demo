@@ -4,6 +4,15 @@ terraform {
       version = "~> 0.49.0"
     }
   }
+# backend "remote" {
+#     hostname     = "app.terraform.io"
+#     organization = "William-Hashicorp"
+
+#     workspaces {
+#       name = "0_control-workspace"
+#     }
+#   }
+
 }
 
 provider "tfe" {}
