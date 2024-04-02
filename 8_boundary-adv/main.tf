@@ -79,19 +79,17 @@ data "boundary_auth_method" "password" {
 }
 
 # Create accounts
-resource "boundary_account" "nomad_admin_account" {
+resource "boundary_account_password" "nomad_admin_account" {
   name           = var.nomad_admin
   description    = "Account for Nomad Admin"
-  type           = "password"
   login_name     = var.nomad_admin
   password       = var.boundary_admin_password
   auth_method_id = data.boundary_auth_method.password.id
 }
 
-resource "boundary_account" "nomad_enduser_account" {
+resource "boundary_account_password" "nomad_enduser_account" {
   name           = var.nomad_enduser
   description    = "Account for Nomad End User"
-  type           = "password"
   login_name     = var.nomad_enduser
   password       = var.boundary_admin_password
   auth_method_id = data.boundary_auth_method.password.id
