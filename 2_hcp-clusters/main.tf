@@ -65,10 +65,9 @@ resource "hcp_consul_cluster_root_token" "provider" {
   lifecycle {
     create_before_destroy = true
     prevent_destroy       = false
+    replace_triggered_by = [null_resource.recreate_trigger.id]
   }
 
-  # Dummy dependency to force recreation  
-  depends_on = [random_pet.trigger]
 }
 
 
