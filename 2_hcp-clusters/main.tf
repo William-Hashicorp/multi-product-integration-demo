@@ -58,11 +58,6 @@ resource "null_resource" "recreate_trigger" {
     pet_id = random_pet.trigger.id
   }
 
-  // Optionally, use a local-exec provisioner to run a script or command.
-  // This can be used for external resource management, but use with caution.
-  // provisioner "local-exec" {
-  //   command = "echo Triggered by change to ${random_pet.trigger.id}"
-  // }
 }
 
 resource "hcp_consul_cluster_root_token" "provider" {
@@ -83,14 +78,9 @@ resource "hcp_vault_cluster_admin_token" "provider" {
   lifecycle {
     create_before_destroy = true
     prevent_destroy       = false
+    replace_triggered_by = null_resource.recreate_trigger.id
   }
 
-  # Dummy dependency to force recreation
-  // depends_on = [random_pet.trigger]
-  depends_on = [null_resource.recreate_trigger]
 
-}
 
-locals {
-  admin_token = hcp_vault_cluster_admin_token.provider.token
 }
