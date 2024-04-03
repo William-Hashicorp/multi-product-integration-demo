@@ -4,11 +4,6 @@ terraform {
       source  = "hashicorp/hcp"
       version = "~> 0.66.0"
     }
-    
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.0"
-    }
   }
 }
 
@@ -48,10 +43,6 @@ resource "hcp_boundary_cluster" "hashistack" {
   password   = var.boundary_admin_password
 }
 
-resource "random_pet" "trigger" {
-  length = 2
-}
-
 resource "null_resource" "recreate_trigger" {
   // This triggers block causes the resource to be recreated any time the random_pet's id changes.
   triggers = {
@@ -68,8 +59,6 @@ resource "hcp_consul_cluster_root_token" "provider" {
   }
 
 }
-
-
 
 resource "hcp_vault_cluster_admin_token" "provider" {
   cluster_id = hcp_vault_cluster.hashistack.cluster_id
