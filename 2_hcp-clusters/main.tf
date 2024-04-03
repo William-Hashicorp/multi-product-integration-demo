@@ -52,6 +52,19 @@ resource "random_pet" "trigger" {
   length = 2
 }
 
+resource "null_resource" "recreate_trigger" {
+  // This triggers block causes the resource to be recreated any time the random_pet's id changes.
+  triggers = {
+    pet_id = random_pet.trigger.id
+  }
+
+  // Optionally, use a local-exec provisioner to run a script or command.
+  // This can be used for external resource management, but use with caution.
+  // provisioner "local-exec" {
+  //   command = "echo Triggered by change to ${random_pet.trigger.id}"
+  // }
+}
+
 resource "hcp_consul_cluster_root_token" "provider" {
   cluster_id = hcp_consul_cluster.hashistack.cluster_id
   lifecycle {
@@ -73,5 +86,7 @@ resource "hcp_vault_cluster_admin_token" "provider" {
   }
 
   # Dummy dependency to force recreation
-  depends_on = [random_pet.trigger]
+  // depends_on = [random_pet.trigger]
+  depends_on = [null_resource.recreate_trigger]
+
 }
