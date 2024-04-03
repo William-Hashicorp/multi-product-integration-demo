@@ -54,6 +54,12 @@ chmod 600 /etc/nomad.d/license.hclic
                 
 sudo systemctl restart nomad
 
+
+
+# Install cowsay
+sudo apt-get install -y cowsay
+
+
 # SSH Vault config
 
 # Your vault public endpoint
@@ -75,7 +81,5 @@ echo $ssh_ca_public_key >> /etc/ssh/trusted-user-ca-keys.pem
 echo "Restarting SSHD service"
 sudo service sshd restart
 
-# Install cowsay
-sudo apt-get install -y cowsay
 
-echo "Script executed successfully" | cowsay
+echo "Script executed successfully"
