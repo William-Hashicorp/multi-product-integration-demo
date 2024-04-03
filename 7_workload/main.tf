@@ -25,6 +25,25 @@ terraform {
       version = "2.18.0"
     }
   }
+  # in case we got timeout error when destroy "vault_database_secrets_mount", 
+  # we can enable the code below, and use
+  # terraform state list
+  # terraform state rm 
+  # terraform state rm vault_database_secrets_mount.mongodb
+  # then trigger destroy on the workspace 7_workload again
+  # then delete the files below before change the code back and commit
+  # rm .terraform
+  # rm -r .terraform.lock.hcl
+
+  # backend "remote" {
+  #   hostname = "app.terraform.io"
+  #   organization = "William-Hashicorp"
+
+  #   workspaces {
+  #     name = "7_workload"
+  #   }
+  # }
+
 }
 
 provider "doormat" {}

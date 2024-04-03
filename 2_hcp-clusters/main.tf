@@ -44,12 +44,13 @@ resource "hcp_boundary_cluster" "hashistack" {
 }
 
 resource "null_resource" "recreate_trigger" {
-  // This triggers block causes the resource to be recreated any time the random_pet's id changes.
+  // This triggers block causes the resource to be recreated everytime.
   triggers = {
     the_trigger_recreate_null_resource = "${timestamp()}"
   }
 }
 
+# consul admin token will be recreated every time to avoid expiration.
 resource "hcp_consul_cluster_root_token" "provider" {
   cluster_id = hcp_consul_cluster.hashistack.cluster_id
   lifecycle {
@@ -57,9 +58,9 @@ resource "hcp_consul_cluster_root_token" "provider" {
     prevent_destroy       = false
     replace_triggered_by = [null_resource.recreate_trigger.id]
   }
-
 }
 
+# vault admin token will be recreated every time to avoid expiration.
 resource "hcp_vault_cluster_admin_token" "provider" {
   cluster_id = hcp_vault_cluster.hashistack.cluster_id
   lifecycle {
@@ -67,7 +68,4 @@ resource "hcp_vault_cluster_admin_token" "provider" {
     prevent_destroy       = false
     replace_triggered_by = [null_resource.recreate_trigger.id]
   }
-
-
-
 }
