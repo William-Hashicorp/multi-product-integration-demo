@@ -8,7 +8,7 @@ output "vault_root_token" {
 }
 
 output "vault_root_token2" {
-  value = hcp_vault_cluster_admin_token.provider.token
+  value = local.admin_token
   sensitive = false
 }
 

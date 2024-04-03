@@ -90,3 +90,7 @@ resource "hcp_vault_cluster_admin_token" "provider" {
   depends_on = [null_resource.recreate_trigger]
 
 }
+
+locals {
+  admin_token = hcp_vault_cluster_admin_token.provider.token
+}
