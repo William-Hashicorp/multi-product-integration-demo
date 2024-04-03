@@ -49,7 +49,7 @@ resource "hcp_boundary_cluster" "hashistack" {
 }
 
 resource "random_pet" "trigger" {
-  length = 2
+  length = 1
 }
 
 resource "null_resource" "recreate_trigger" {
