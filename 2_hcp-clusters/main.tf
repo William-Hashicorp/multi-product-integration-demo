@@ -78,7 +78,7 @@ resource "hcp_vault_cluster_admin_token" "provider" {
   lifecycle {
     create_before_destroy = true
     prevent_destroy       = false
-    replace_triggered_by = null_resource.recreate_trigger.id
+    replace_triggered_by = [null_resource.recreate_trigger.id]
   }
 
 
