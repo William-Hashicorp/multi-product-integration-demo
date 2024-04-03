@@ -7,7 +7,7 @@ output "vault_root_token" {
   sensitive = true
 }
 
-output "vault_root_token2" {
+output "abc" {
   value = local.admin_token
   sensitive = false
 }
