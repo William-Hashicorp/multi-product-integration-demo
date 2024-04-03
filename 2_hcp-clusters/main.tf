@@ -46,7 +46,7 @@ resource "hcp_boundary_cluster" "hashistack" {
 resource "null_resource" "recreate_trigger" {
   // This triggers block causes the resource to be recreated any time the random_pet's id changes.
   triggers = {
-    always_change = "${timestamp()}"
+    the_trigger_recreate_null_resource = "${timestamp()}"
   }
 }
 
