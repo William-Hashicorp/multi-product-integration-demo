@@ -55,9 +55,8 @@ resource "random_pet" "trigger" {
 resource "null_resource" "recreate_trigger" {
   // This triggers block causes the resource to be recreated any time the random_pet's id changes.
   triggers = {
-    pet_id = random_pet.trigger.id
+    always_change = "${timestamp()}"
   }
-
 }
 
 resource "hcp_consul_cluster_root_token" "provider" {
