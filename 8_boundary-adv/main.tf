@@ -218,6 +218,9 @@ resource "boundary_auth_method_oidc" "oidc_auth" {
   client_id     = var.aad_client_id
   client_secret = var.aad_client_secret
   api_url_prefix = data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint
+  
+  # make oidc as the primary auth method for the scope in which it resides. 
+  # The primary auth method for a scope means the user will be automatically created when they login using an OIDC account.
   is_primary_for_scope = true
   type = "oidc"
  
@@ -228,4 +231,24 @@ resource "boundary_auth_method_oidc" "oidc_auth" {
   claims_scopes = var.claims_scopes
 
   # Additional configuration like allowed_audiences, claim_mappings, etc., can be added here
+}
+
+# Managed Group for All Azure Users with onmicrosoft.com domain in email
+resource "boundary_managed_group" "azure_all_users" {
+  name        = "Azure-All-Users"
+  description = "All users with onmicrosoft.com domain in email"
+  auth_method_id = boundary_auth_method_oidc.oidc_auth.id
+  
+  # Filter expression for users with onmicrosoft.com domain in their email
+  filter = "\"onmicrosoft.com\" in \"/token/email\""
+}
+
+# Managed Group for Users Member of a Specific Group
+resource "boundary_managed_group" "group_specific_member" {
+  name        = "Specific-Group-Members"
+  description = "Users who are members of a specific Azure AD group"
+  auth_method_id = boundary_auth_method_oidc.oidc_auth.id
+  
+  # Filter for members of the group with a specific ID
+  filter = "\"9cb253fd-c421-4ba5-a4ce-e7ac83f554ae\" in \"/token/groups\""
 }
