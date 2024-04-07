@@ -88,3 +88,26 @@ variable "boundary_project_name" {
   type        = string
   default     = "hashistack-admin"
 }
+
+variable "boundary_signing_algorithms" {
+  description = "name of the default auth method"
+  type        = string
+  default     = "RS256"
+}
+
+variable "aad_client_id" {
+  description = "The Client ID for Azure AD"
+  type        = string
+}
+
+variable "aad_client_secret" {
+  description = "The Client Secret for Azure AD"
+  type        = string
+}
+
+# Define the claims_scopes variable
+variable "claims_scopes" {
+  description = "The scopes of claims to request from the OIDC provider"
+  type        = list(string)
+  default     = ["profile"] # Default value set as a list with "profile"
+}

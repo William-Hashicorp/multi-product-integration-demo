@@ -11,7 +11,8 @@ terraform {
 
     boundary = {
       source = "hashicorp/boundary"
-      version = "~> 1.1.9"
+      //version = "~> 1.1.9"
+      version = "~> 1.1.14"
     }
 
     vault = {
@@ -49,8 +50,8 @@ provider "vault" {}
 
 provider "boundary" {
   addr  = data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint
-  auth_method_login_name = var.boundary_admin_username
-  auth_method_password   = var.boundary_admin_password
+  //auth_method_login_name = var.boundary_admin_username
+  //auth_method_password   = var.boundary_admin_password
 }
 
 
@@ -206,3 +207,23 @@ resource "boundary_role" "project_nomad_enduser_role" {
   ]
 }
 
+# Create an OIDC auth method
+resource "boundary_auth_method_oidc" "oidc_auth" {
+  name          = "oidc_auth_method" # You can change this to your preferred name
+  description   = "OIDC auth method for Azure AD"
+  scope_id      = "YOUR_SCOPE_ID_HERE" # Replace with your actual scope ID
+
+  issuer        = "${data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint}/v2.0"
+  client_id     = var.aad_client_id
+  client_secret = var.aad_client_secret
+  api_url_prefix = data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint
+  type = "oidc"
+ 
+  # Configuration for OIDC
+  signing_algorithms = [var.boundary_signing_algorithms]
+
+  # Configuration for claims scopes
+  claims_scopes = var.claims_scopes
+
+  # Additional configuration like allowed_audiences, claim_mappings, etc., can be added here
+}
