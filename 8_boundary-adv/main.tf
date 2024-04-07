@@ -217,7 +217,9 @@ resource "boundary_role" "project_nomad_enduser_role" {
 resource "boundary_auth_method_oidc" "oidc_auth" {
   name          = "oidc" # You can change this to your preferred name
   description   = "OIDC auth method for Azure AD"
-  # enable oidc on org level, otherwise, it will impact boundary provider after making oidc as primary
+  # We can only enable oidc on org level. If we enable on Global level, 
+  # it will impact boundary provider after making oidc as primary
+  # because boundary provider only support authentication with password.
   scope_id      = data.boundary_scope.org.id 
 
   issuer        = var.aad_issuer
@@ -246,7 +248,7 @@ resource "boundary_managed_group" "azure_all_users" {
   auth_method_id = boundary_auth_method_oidc.oidc_auth.id
   
   # Filter expression for users with onmicrosoft.com domain in their email
-  filter = "\"onmicrosoft.com\" in \"/token/email\""
+  filter = "\"${var.aad_email_domain}\" in \"/token/email\""
 }
 
 # Managed Group for Users Member of a Specific Group
@@ -256,5 +258,5 @@ resource "boundary_managed_group" "jitusers" {
   auth_method_id = boundary_auth_method_oidc.oidc_auth.id
   
   # Filter for members of the group with a specific ID
-  filter = "\"9cb253fd-c421-4ba5-a4ce-e7ac83f554ae\" in \"/token/groups\""
+  filter = "\"${var.aad_group_id}\" in \"/token/groups\""
 }

@@ -106,8 +106,19 @@ variable "aad_client_secret" {
 }
 
 variable "aad_issuer" {
-  description = "The Client Secret for Azure AD"
+  description = "The OIDC issuer for Azure AD"
   type        = string
+}
+
+variable "aad_group_id" {
+  description = "The Azure AD group ID for the JIT users"
+  type        = string
+}
+
+variable "aad_email_domain" {
+  description = "The email domain for the Azure AD tenant"
+  type        = string
+  default     = "onmicrosoft.com"
 }
 
 # Define the claims_scopes variable
