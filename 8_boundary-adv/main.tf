@@ -50,8 +50,8 @@ provider "vault" {}
 
 provider "boundary" {
   addr  = data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint
-  //auth_method_login_name = var.boundary_admin_username
-  //auth_method_password   = var.boundary_admin_password
+  auth_method_login_name = var.boundary_admin_username
+  auth_method_password   = var.boundary_admin_password
 }
 
 
