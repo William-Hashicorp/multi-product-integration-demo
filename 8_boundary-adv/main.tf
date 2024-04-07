@@ -211,12 +211,14 @@ resource "boundary_role" "project_nomad_enduser_role" {
 resource "boundary_auth_method_oidc" "oidc_auth" {
   name          = "oidc" # You can change this to your preferred name
   description   = "OIDC auth method for Azure AD"
-  scope_id      = boundary_scope.global.id # Replace with your actual scope ID
+  # enable oidc on org level, otherwise, it will impact boundary provider after making oidc as primary
+  scope_id      = data.boundary_scope.org.id 
 
   issuer        = var.aad_issuer
   client_id     = var.aad_client_id
   client_secret = var.aad_client_secret
   api_url_prefix = data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint
+  is_primary_for_scope = true
   type = "oidc"
  
   # Configuration for OIDC
