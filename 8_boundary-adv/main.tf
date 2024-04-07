@@ -213,7 +213,7 @@ resource "boundary_auth_method_oidc" "oidc_auth" {
   description   = "OIDC auth method for Azure AD"
   scope_id      = boundary_scope.global.id # Replace with your actual scope ID
 
-  issuer        = "${data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint}/v2.0"
+  issuer        = var.aad_issuer
   client_id     = var.aad_client_id
   client_secret = var.aad_client_secret
   api_url_prefix = data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint

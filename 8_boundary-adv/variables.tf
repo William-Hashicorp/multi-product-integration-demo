@@ -105,6 +105,11 @@ variable "aad_client_secret" {
   type        = string
 }
 
+variable "aad_issuer" {
+  description = "The Client Secret for Azure AD"
+  type        = string
+}
+
 # Define the claims_scopes variable
 variable "claims_scopes" {
   description = "The scopes of claims to request from the OIDC provider"
