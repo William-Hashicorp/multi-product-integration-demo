@@ -209,9 +209,9 @@ resource "boundary_role" "project_nomad_enduser_role" {
 
 # Create an OIDC auth method
 resource "boundary_auth_method_oidc" "oidc_auth" {
-  name          = "oidc_auth_method" # You can change this to your preferred name
+  name          = "oidc" # You can change this to your preferred name
   description   = "OIDC auth method for Azure AD"
-  scope_id      = "YOUR_SCOPE_ID_HERE" # Replace with your actual scope ID
+  scope_id      = data.boundary_scope.project.id # Replace with your actual scope ID
 
   issuer        = "${data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint}/v2.0"
   client_id     = var.aad_client_id
