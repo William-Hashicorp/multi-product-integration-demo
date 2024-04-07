@@ -244,9 +244,9 @@ resource "boundary_managed_group" "azure_all_users" {
 }
 
 # Managed Group for Users Member of a Specific Group
-resource "boundary_managed_group" "group_specific_member" {
-  name        = "Specific-Group-Members"
-  description = "Users who are members of a specific Azure AD group"
+resource "boundary_managed_group" "jitusers" {
+  name        = "jitusers"
+  description = "Users who are members of a specific Azure AD group jitusers"
   auth_method_id = boundary_auth_method_oidc.oidc_auth.id
   
   # Filter for members of the group with a specific ID
