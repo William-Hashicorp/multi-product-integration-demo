@@ -44,6 +44,7 @@ resource "hcp_boundary_cluster" "hashistack" {
 }
 
 resource "null_resource" "recreate_trigger" {
+  depends_on = [ hcp_consul_cluster.hashistack, hcp_vault_cluster.hashistack ]
   // This triggers block causes the resource to be recreated everytime.
   triggers = {
     the_trigger_recreate_null_resource = "${timestamp()}"
@@ -52,7 +53,7 @@ resource "null_resource" "recreate_trigger" {
 
 # consul admin token will be recreated every time to avoid expiration.
 resource "hcp_consul_cluster_root_token" "provider" {
-  //depends_on = [ hcp_consul_cluster.hashistack ]
+  depends_on = [ hcp_consul_cluster.hashistack, null_resource.recreate_trigger ]
   cluster_id = hcp_consul_cluster.hashistack.cluster_id
   lifecycle {
     create_before_destroy = true
@@ -63,7 +64,7 @@ resource "hcp_consul_cluster_root_token" "provider" {
 
 # vault admin token will be recreated every time to avoid expiration.
 resource "hcp_vault_cluster_admin_token" "provider" {
-  //depends_on = [ hcp_vault_cluster.hashistack ]
+  depends_on = [ hcp_vault_cluster.hashistack, null_resource.recreate_trigger ]
   cluster_id = hcp_vault_cluster.hashistack.cluster_id
   lifecycle {
     create_before_destroy = true
