@@ -277,12 +277,22 @@ resource "boundary_managed_group" "azure_all_users" {
   filter = "\"${var.aad_email_domain}\" in \"/token/email\""
 }
 
-# Managed Group for Users Member of a Specific Group
+# Managed Group for Users Member of a nomad jit users Group
 resource "boundary_managed_group" "jitusers" {
   name        = "jitusers"
   description = "Users who are members of a specific Azure AD group jitusers"
   auth_method_id = boundary_auth_method_oidc.oidc_auth.id
   
   # Filter for members of the group with a specific ID
-  filter = "\"${var.aad_group_id}\" in \"/token/groups\""
+  filter = "\"${var.aad_nomad_jit_user_group_id}\" in \"/token/groups\""
+}
+
+# Managed Group for Member of a nomad server admin Group
+resource "boundary_managed_group" "normad_admin_users" {
+  name        = "normad_admin_users"
+  description = "Users who are members of a specific Azure AD group nomad-server-admins "
+  auth_method_id = boundary_auth_method_oidc.oidc_auth.id
+  
+  # Filter for members of the group with a specific ID
+  filter = "\"${var.aad_nomad_server_admin_group_id}\" in \"/token/groups\""
 }

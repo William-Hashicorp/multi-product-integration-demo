@@ -110,8 +110,13 @@ variable "aad_issuer" {
   type        = string
 }
 
-variable "aad_group_id" {
+variable "aad_nomad_jit_user_group_id" {
   description = "The Azure AD group ID for the JIT users"
+  type        = string
+}
+
+variable "aad_nomad_server_admin_group_id" {
+  description = "The Azure AD group ID for the Nomad Server admins"
   type        = string
 }
 
