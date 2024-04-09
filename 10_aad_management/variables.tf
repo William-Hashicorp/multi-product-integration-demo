@@ -1,6 +1,6 @@
 
 
-variable "user_account_name" {
+variable "aad_user_principal_name" {
   description = "The User Principal Name (UPN) of the Azure AD User."
   type        = string
 }

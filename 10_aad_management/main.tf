@@ -12,7 +12,7 @@ required_providers {
 provider "azuread" {}
 
 data "azuread_user" "aad_user" {
-  user_principal_name = var.user_account_name
+  user_principal_name = var.aad_user_principal_name
 }
 
 resource "azuread_group_member" "aad_group_member" {
