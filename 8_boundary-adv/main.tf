@@ -180,7 +180,10 @@ resource "boundary_role" "org_nomad_admin_role" {
   name          = var.nomad_admin_role
   description   = "Role for Nomad Admins"
   scope_id      = data.boundary_scope.org.id 
-  principal_ids = [boundary_group.nomad_admins.id] 
+  principal_ids = [
+    boundary_group.nomad_admins.id,
+    boundary_managed_group.normad_admin_users.id
+  ] 
   grant_strings = [
     "ids=*;type=*;actions=read,list",
   ]
