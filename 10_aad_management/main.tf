@@ -1,6 +1,5 @@
+# this code is to be run by ServiceNow to add/remove users from AAD groups.
 terraform {
-  # Depending on the version, you might not need the features block
-  # Ensure you're using a version compatible with your Terraform setup
 required_providers {
     azuread = {
         source  = "hashicorp/azuread"

@@ -206,7 +206,10 @@ resource "boundary_role" "project_nomad_admin_role" {
   name          = var.nomad_admin_role
   description   = "Role for Nomad Admins in project hashistack-admin"
   scope_id      = data.boundary_scope.project.id
-  principal_ids = [boundary_group.nomad_admins.id]
+  principal_ids = [
+    boundary_group.nomad_admins.id,
+    boundary_managed_group.normad_admin_users.id
+    ]
 
   grant_strings = [
     "ids=${data.terraform_remote_state.boundary_configs.outputs.nomad_servers_target_id};actions=read,authorize-session",
