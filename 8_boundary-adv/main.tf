@@ -260,7 +260,7 @@ resource "boundary_auth_method_oidc" "oidc_auth" {
   api_url_prefix = data.terraform_remote_state.hcp_clusters.outputs.boundary_public_endpoint
   # this is to force user logoff from boundary client/portal after OIDC auth.
   # Rhe managed group membership will only be refreshed after the user login again.
-  max_age = 0
+  max_age = 300
   # make oidc as the primary auth method for the scope in which it resides. 
   # The primary auth method for a scope means the user will be automatically created when they login using an OIDC account.
   is_primary_for_scope = true
