@@ -14,3 +14,7 @@ output "vault_public_endpoint" {
 output "consul_public_endpoint" {
   value = data.terraform_remote_state.hcp_clusters.outputs.consul_public_endpoint
 }
+
+output "nomad_public_endpoint" {
+  value = data.terraform_remote_state.nomad_configs.outputs.nomad_public_endpoint
+}

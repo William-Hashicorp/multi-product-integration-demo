@@ -60,6 +60,17 @@ data "terraform_remote_state" "boundary_configs" {
   }
 }
 
+data "terraform_remote_state" "nomad_configs" {
+  backend = "remote"
+
+  config = {
+    organization = var.tfc_organization
+    workspaces = {
+      name = "5_nomad-cluster"
+    }
+  }
+}
+
 
 provider "vault" {}
 
