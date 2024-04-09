@@ -16,7 +16,7 @@ data "azuread_user" "aad_user" {
 }
 
 resource "azuread_group_member" "aad_group_member" {
-  group_object_id  = var.azuread_group_id
+  group_object_id  = var.aad_group_id
   member_object_id = data.azuread_user.aad_user.object_id
 }
 

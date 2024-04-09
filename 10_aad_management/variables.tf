@@ -5,7 +5,7 @@ variable "aad_user_principal_name" {
   type        = string
 }
 
-variable "azuread_group_id" {
+variable "aad_group_id" {
   description = "The Object ID of the Azure AD Group."
   type        = string
 }
