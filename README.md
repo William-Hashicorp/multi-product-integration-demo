@@ -256,3 +256,10 @@ boundary connect ssh -target-id $TARGET_ID
 Latest change:
 1. update 5_ and 6_ due to the latest hcp provider break changes.
 https://github.com/hashicorp/terraform-provider-hcp/releases/tag/v0.84.0
+
+2. Add 8_ for additional user/group/role management in Boundary
+
+3. Add 10_ for Azure AD management for Just-in-Time Access solution 
+
+4. PPT updated here:
+https://drive.google.com/drive/folders/1gMPyzQoMVyyBZ9LafNhay3mgXePJ_zV9?usp=sharing
