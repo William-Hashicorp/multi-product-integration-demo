@@ -221,6 +221,7 @@ resource "boundary_target" "nomad_servers" {
   name         = "Nomad Servers"
   type         = "ssh"
   default_port = "22"
+  session_max_seconds = 900
   scope_id     = boundary_scope.project.id
   host_source_ids = [
     boundary_host_set_plugin.nomad_servers.id 
@@ -234,6 +235,7 @@ resource "boundary_target" "nomad_nodes_x86" {
   name         = "Nomad x86 Nodes"
   type         = "ssh"
   default_port = "22"
+  session_max_seconds = 900
   scope_id     = boundary_scope.project.id
   host_source_ids = [
     boundary_host_set_plugin.nomad_nodes_x86.id 
@@ -247,6 +249,7 @@ resource "boundary_target" "nomad_nodes_arm" {
   name         = "Nomad Arm Nodes"
   type         = "ssh"
   default_port = "22"
+  session_max_seconds = 900
   scope_id     = boundary_scope.project.id
   host_source_ids = [
     boundary_host_set_plugin.nomad_nodes_arm.id 
