@@ -113,7 +113,7 @@ data "boundary_auth_method" "password" {
   name     = var.auth_method_name
 }
 
-# get the managed group
+# get the managed  group
 data "boundary_group" "org_group" {
   name     = "jitusers"
   scope_id = data.boundary_scope.org.id
