@@ -115,8 +115,8 @@ data "boundary_auth_method" "password" {
 
 # get the  managed group
 data "boundary_group" "org_group" {
-  name     = "jitusers"
-  scope_id = data.boundary_scope.org.id
+  name     = "nomad-endusers"
+  scope_id = "global"
 }
 
 # # Create accounts
