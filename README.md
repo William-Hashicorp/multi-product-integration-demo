@@ -262,4 +262,4 @@ https://github.com/hashicorp/terraform-provider-hcp/releases/tag/v0.84.0
 3. Add 10_ for Azure AD management for Just-in-Time Access solution 
 
 4. PPT updated here:
-https://drive.google.com/drive/folders/1gMPyzQoMVyyBZ9LafNhay3mgXePJ_zV9?usp=sharing
+https://docs.google.com/presentation/d/1foTDWXuXY32D3L1u4xoblfx8Xvh4u7KHgVciYyb7fHU/edit?usp=sharing
