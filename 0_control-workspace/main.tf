@@ -169,13 +169,13 @@ resource "tfe_workspace_run" "networking" {
   apply {
     manual_confirm    = false
     wait_for_run      = true
-    retry_attempts    = 5
+    retry_attempts    = 1
     retry_backoff_min = 5
   }
   destroy {
     manual_confirm    = false
     wait_for_run      = true
-    retry_attempts    = 5
+    retry_attempts    = 1
     retry_backoff_min = 5
   }
 }
@@ -187,13 +187,13 @@ resource "tfe_workspace_run" "hcp_clusters" {
   apply {
     manual_confirm    = false
     wait_for_run      = true
-    retry_attempts    = 5
+    retry_attempts    = 1
     retry_backoff_min = 5
   }
   destroy {
     manual_confirm    = false
     wait_for_run      = true
-    retry_attempts    = 5
+    retry_attempts    = 1
     retry_backoff_min = 5
   }
 }
@@ -205,13 +205,13 @@ resource "tfe_workspace_run" "vault_auth_config" {
   apply {
     manual_confirm    = false
     wait_for_run      = true
-    retry_attempts    = 5
+    retry_attempts    = 1
     retry_backoff_min = 5
   }
   destroy {
     manual_confirm    = false
     wait_for_run      = true
-    retry_attempts    = 5
+    retry_attempts    = 1
     retry_backoff_min = 5
   }
 }
@@ -223,13 +223,13 @@ resource "tfe_workspace_run" "boundary_config" {
   apply {
     manual_confirm    = false
     wait_for_run      = true
-    retry_attempts    = 5
+    retry_attempts    = 1
     retry_backoff_min = 5
   }
   destroy {
     manual_confirm    = false
     wait_for_run      = true
-    retry_attempts    = 5
+    retry_attempts    = 1
     retry_backoff_min = 5
   }
 }
