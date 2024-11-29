@@ -21,6 +21,7 @@ resource "tfe_workspace" "networking" {
   name          = "1_networking"
   organization  = var.tfc_organization
   project_id    = var.tfc_project_id
+  terraform_version = var.terraform_version_value
 
   vcs_repo {
     identifier = var.repo_identifier
@@ -38,6 +39,7 @@ resource "tfe_workspace" "hcp_clusters" {
   name          = "2_hcp-clusters"
   organization  = var.tfc_organization
   project_id    = var.tfc_project_id
+  terraform_version = var.terraform_version_value
 
   vcs_repo {
     identifier = var.repo_identifier
@@ -55,6 +57,7 @@ resource "tfe_workspace" "vault_auth_config" {
   name          = "3_vault-auth-config"
   organization  = var.tfc_organization
   project_id    = var.tfc_project_id
+  terraform_version = var.terraform_version_value
 
   vcs_repo {
     identifier = var.repo_identifier
@@ -72,6 +75,7 @@ resource "tfe_workspace" "boundary_config" {
   name          = "4_boundary-config"
   organization  = var.tfc_organization
   project_id    = var.tfc_project_id
+  terraform_version = var.terraform_version_value
 
   vcs_repo {
     identifier = var.repo_identifier
@@ -89,6 +93,7 @@ resource "tfe_workspace" "nomad_cluster" {
   name          = "5_nomad-cluster"
   organization  = var.tfc_organization
   project_id    = var.tfc_project_id
+  terraform_version = var.terraform_version_value
 
   vcs_repo {
     identifier = var.repo_identifier
@@ -106,6 +111,7 @@ resource "tfe_workspace" "nomad_nodes" {
   name          = "6_nomad-nodes"
   organization  = var.tfc_organization
   project_id    = var.tfc_project_id
+  terraform_version = var.terraform_version_value
 
   vcs_repo {
     identifier = var.repo_identifier
@@ -123,6 +129,7 @@ resource "tfe_workspace" "nomad_workload" {
   name          = "7_workload"
   organization  = var.tfc_organization
   project_id    = var.tfc_project_id
+  terraform_version = var.terraform_version_value
 
   vcs_repo {
     identifier = var.repo_identifier
@@ -140,6 +147,7 @@ resource "tfe_workspace" "boundary-adv" {
   name          = "8_boundary-adv"
   organization  = var.tfc_organization
   project_id    = var.tfc_project_id
+  terraform_version = var.terraform_version_value
 
   vcs_repo {
     identifier = var.repo_identifier
