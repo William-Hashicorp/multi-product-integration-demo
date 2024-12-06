@@ -29,7 +29,7 @@ resource "hcp_vault_cluster" "hashistack" {
 }
 
 resource "hcp_consul_cluster" "hashistack" {
-  cluster_id      = "${var.stack_id}consul-cluster"
+  cluster_id      = "${var.stack_id}consul"
   hvn_id          = data.terraform_remote_state.networking.outputs.hvn_id
   tier            = var.consul_cluster_tier
   public_endpoint = true
